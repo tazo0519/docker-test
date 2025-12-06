@@ -15,6 +15,7 @@ COPY --from=builder /app/build/libs/*.jar app.jar
 
 
 EXPOSE 8080
+# ENTRYPOINT: 컨테이너가 생성되고 최초로 실행할 때 수행되는 명령어, 미니 컴퓨터의 전원을 키고나서 실행시키고싶은 명령어를 적으면 된다
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # 종료된 컨테이너에 들어가서 디버깅하고 싶을 때 사용
