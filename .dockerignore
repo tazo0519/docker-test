@@ -1,0 +1,2 @@
+# 파일을 COPY 할 때, .dockerignore 파일에 있는, ex) HELP.md 을 복사하지 않는다.
+HELP.md

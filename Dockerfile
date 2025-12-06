@@ -2,7 +2,6 @@
 FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 
-
 COPY . .
 RUN ./gradlew clean build -x test
 
@@ -11,6 +10,7 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 
+# 호스트 컴퓨터의 .jar 파일을 app.jar로 복사한다
 COPY --from=builder /app/build/libs/*.jar app.jar
 
 
