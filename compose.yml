@@ -1,7 +1,23 @@
-# docker compose up -d : 백그라운드로 컴포즈를 띄우겠다.
-# Dockerfile 에 RUN ./gradlew clean build -x test 해당 명령어가 있으므로 docker compose up -d --build 하지 않아도 됨.
+# docker compose up -d --build: 백그라운드로 컴포즈를 띄우겠다. & 실행 시 새로 빌드하겠다.
 services:
   my-server:
     build: .  # Dockerfile 이 compose.yml 파일 기준으로 같은 계층에 있기 때문에 . 으로 표현
     ports:
       - 8080:8080
+    depends_on: # DB가 뜨지않고 부트서버가 뜨면 DB 연결이 되지않아 서비스가 다운됨. 따라서, DB 먼저 실행 후 부트 서버를 실행시키겠다는 의미
+      my-db:  # 아래의 DB명
+        condition: service_healthy  # DB가 정상적으로 실행되고있다는 의미
+
+  my-db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd1234
+      MYSQL_DATABASE: mydb
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"] # 데이터베이스가 정상적으로 떳는지 확인하는 코드
+      interval: 5s
+      retries: 10

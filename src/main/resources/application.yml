@@ -5,19 +5,25 @@ spring:
   application:
     name: docker-test
 
-  datasource:
-    url: jdbc:h2:mem:docker-testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+#  datasource:
+#    url: jdbc:h2:mem:docker-testdb
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
+  datasource:
+    url: jdbc:mysql://my-db:3306/mydb # my-db: compose.yml 파일에 있는 db 서비스 명
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: pwd1234
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    show-sql: true
 
 management:
   endpoints:
