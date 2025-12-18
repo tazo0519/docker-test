@@ -7,6 +7,8 @@ services:
     depends_on: # DB가 뜨지않고 부트서버가 뜨면 DB 연결이 되지않아 서비스가 다운됨. 따라서, DB 먼저 실행 후 부트 서버를 실행시키겠다는 의미
       my-db:  # 아래의 DB명
         condition: service_healthy  # DB가 정상적으로 실행되고있다는 의미
+      my-cache-server:
+        condition: service_healthy  # redis가 정상적으로 실행되고 있다.
 
   my-db:
     image: mysql
@@ -19,5 +21,14 @@ services:
       - 3306:3306
     healthcheck:
       test: ["CMD", "mysqladmin", "ping"] # 데이터베이스가 정상적으로 떳는지 확인하는 코드
+      interval: 5s
+      retries: 10
+
+  my-cache-server:
+    image: redis
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"] # 데이터베이스가 정상적으로 떳는지 확인하는 코드
       interval: 5s
       retries: 10

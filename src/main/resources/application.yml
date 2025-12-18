@@ -17,6 +17,11 @@ spring:
     username: root
     password: pwd1234
 
+  data:
+    redis:
+      host: my-cache-server
+      port: 6379
+
 #  jpa:
 #    hibernate:
 #      ddl-auto: update
