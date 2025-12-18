@@ -2,6 +2,6 @@
 # Dockerfile 에 RUN ./gradlew clean build -x test 해당 명령어가 있으므로 docker compose up -d --build 하지 않아도 됨.
 services:
   my-server:
-    build: .
+    build: .  # Dockerfile 이 compose.yml 파일 기준으로 같은 계층에 있기 때문에 . 으로 표현
     ports:
       - 8080:8080
