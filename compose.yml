@@ -1,0 +1,7 @@
+# docker compose up -d : 백그라운드로 컴포즈를 띄우겠다.
+# Dockerfile 에 RUN ./gradlew clean build -x test 해당 명령어가 있으므로 docker compose up -d --build 하지 않아도 됨.
+services:
+  my-server:
+    build: .
+    ports:
+      - 8080:8080
